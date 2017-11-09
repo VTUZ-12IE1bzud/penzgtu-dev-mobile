@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <string name="app_name">PenzgtuLesson03</string>
+    <!--  Global -->
+    <string name="global.app.name">PenzgtuLesson03</string>
+
+    <!-- Main Screen -->
+    <string name="main.search.hint">Адрес сайта</string>
+
 </resources>
