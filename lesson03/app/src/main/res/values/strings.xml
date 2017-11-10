@@ -5,6 +5,6 @@
     <string name="global.app.name">PenzgtuLesson03</string>
 
     <!-- Main Screen -->
-    <string name="main.search.hint">Адрес сайта</string>
+    <string name="main.search.hint">Найти</string>
 
 </resources>
