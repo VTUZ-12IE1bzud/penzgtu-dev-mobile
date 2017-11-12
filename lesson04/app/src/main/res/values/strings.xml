@@ -3,4 +3,7 @@
 <resources>
     <!--  Global -->
     <string name="global.app.name">PenzgtuLesson04</string>
+
+    <!-- Main Screen -->
+    <string name="main.tabs.language">ЯП</string>
 </resources>
