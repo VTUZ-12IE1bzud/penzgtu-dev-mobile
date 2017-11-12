@@ -6,4 +6,10 @@
 
     <!-- Main Screen -->
     <string name="main.tabs.language">ЯП</string>
+    <string name="main.tabs.relax">Релах</string>
+
+    <!-- Relax Screen -->
+    <string name="relax.action.chane">Изменить</string>
+    <string name="relax.picker.title">Выберите цвет</string>
+    <string name="relax.picker.action.positive">Выбрать</string>
 </resources>

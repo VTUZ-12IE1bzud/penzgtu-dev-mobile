@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "ru.annin.penzgtulesson04"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
@@ -75,6 +75,9 @@ dependencies {
     // MVP
     implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
     kapt 'com.arello-mobile:moxy-compiler:1.5.3'
+
+    // UI
+    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
 
     // Test's
     testImplementation 'junit:junit:4.12'

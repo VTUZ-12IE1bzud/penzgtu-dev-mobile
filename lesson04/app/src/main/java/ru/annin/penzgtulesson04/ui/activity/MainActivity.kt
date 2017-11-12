@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import ru.annin.penzgtulesson04.R
 import ru.annin.penzgtulesson04.ui.adapter.MainPagerAdapter
 import ru.annin.penzgtulesson04.ui.fragment.LanguagesFragment
+import ru.annin.penzgtulesson04.ui.fragment.RelaxFragment
 
 /**
  * Глвный экран.
@@ -39,7 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         private val pages by lazy {
             MainPagerAdapter(fm, listOf(
-                    MainPagerAdapter.Item(vRoot.resources.getString(R.string.main_tabs_language), LanguagesFragment.newInstance())
+                    MainPagerAdapter.Item(vRoot.resources.getString(R.string.main_tabs_language), LanguagesFragment.newInstance()),
+                    MainPagerAdapter.Item(vRoot.resources.getString(R.string.main_tabs_relax), RelaxFragment.newInstance())
             ))
         }
 
