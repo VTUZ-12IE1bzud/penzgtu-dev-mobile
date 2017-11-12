@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "${rootDir}/tools/script-git-version.gradle"
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+def versionBuild = 1
+
+android {
+
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
+
+    defaultConfig {
+        applicationId "ru.annin.penzgtulesson05"
+        minSdkVersion 15
+        targetSdkVersion 27
+
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}" + (versionPatch == 0 ? "" : ".${versionPatch}" + "-${gitRevision}")
+
+        resConfigs "ru"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            versionNameSuffix "-${gitRevision}"
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        File outDir = file("${rootDir}/out/${variant.buildType.name}")
+        if (!outDir.exists()) {
+            outDir.mkdirs()
+        }
+        variant.assemble.doLast {
+            variant.outputs.each { output ->
+                File apkFile = output.outputFile
+                copy {
+                    from apkFile
+                    into outDir
+                    rename { fileName -> "PenzgtuLesson04_v${variant.versionName}.${variant.versionCode}.apk" }
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Android Support Library
+    implementation 'com.android.support:design:27.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:customtabs:27.0.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    kapt 'com.github.bumptech.glide:compiler:4.3.1'
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // MVP
+    implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
+    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
+
+    // Test's
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+kapt { generateStubs = true }
