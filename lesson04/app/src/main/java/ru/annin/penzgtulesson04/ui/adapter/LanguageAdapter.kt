@@ -17,7 +17,7 @@ import ru.annin.penzgtulesson04.mvp.model.Language
  * @author Pavel Annin.
  */
 class LanguageAdapter(private val items: MutableList<Language> = mutableListOf(),
-                      var onItemClick: ((Language) -> Unit)? = null) : RecyclerView.Adapter<LanguageAdapter.ItemViewHolder>() {
+                      var onItemClick: ((language: Language, logo: View, title: View) -> Unit)? = null) : RecyclerView.Adapter<LanguageAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val vRoot = LayoutInflater.from(parent.context).inflate(R.layout.item_language, parent, false)
@@ -27,7 +27,7 @@ class LanguageAdapter(private val items: MutableList<Language> = mutableListOf()
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         items[position].let { item ->
             holder.setup {
-                onClick = { onItemClick?.invoke(item) }
+                onClick = { logo: View, title: View -> onItemClick?.invoke(item, logo, title) }
                 bindToData(item)
             }
         }
@@ -47,11 +47,11 @@ class LanguageAdapter(private val items: MutableList<Language> = mutableListOf()
         private val txtTitle by lazy { vRoot.findViewById<TextView>(R.id.txt_title) }
 
         // Listener's
-        var onClick: (() -> Unit)? = null
+        var onClick: ((logo: View, title: View) -> Unit)? = null
 
         fun setup(block: ItemViewHolder.() -> Unit) {
             block()
-            vRoot.setOnClickListener { onClick?.invoke() }
+            vRoot.setOnClickListener { onClick?.invoke(ivLogo, txtTitle) }
         }
 
         fun bindToData(data: Language) {

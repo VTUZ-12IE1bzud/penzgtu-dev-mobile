@@ -12,6 +12,7 @@ import ru.annin.penzgtulesson04.R
 import ru.annin.penzgtulesson04.mvp.model.Language
 import ru.annin.penzgtulesson04.mvp.presenter.LanguagePresenter
 import ru.annin.penzgtulesson04.mvp.view.LanguageView
+import ru.annin.penzgtulesson04.ui.activity.LanguageDetailActivity
 import ru.annin.penzgtulesson04.ui.adapter.LanguageAdapter
 
 /**
@@ -38,11 +39,14 @@ class LanguagesFragment : MvpAppCompatFragment(), LanguageView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDelegate = ViewDelegate(view).apply {
-            onLanguageClick = {  }
+            onLanguageClick = { language: Language, logo: View, title: View -> goToDetail(language, logo, title) }
         }
     }
 
     override fun update(languages: List<Language>) = viewDelegate.run { this.languages.swap(languages) }
+
+    private fun goToDetail(language: Language, logo: View, title: View)
+            = LanguageDetailActivity.launch(this, language, logo, title)
 
     private class ViewDelegate(private val vRoot: View) {
 
@@ -53,7 +57,7 @@ class LanguagesFragment : MvpAppCompatFragment(), LanguageView {
         val languages by lazy { LanguageAdapter() }
 
         // Listener's
-        var onLanguageClick: ((Language) -> Unit)? = null
+        var onLanguageClick: ((language: Language, logo: View, title: View) -> Unit)? = null
 
         init {
             rvLanguages.run {
@@ -61,7 +65,7 @@ class LanguagesFragment : MvpAppCompatFragment(), LanguageView {
                 itemAnimator = DefaultItemAnimator()
                 adapter = languages
             }
-            languages.onItemClick = { onLanguageClick?.invoke(it) }
+            languages.onItemClick = { language: Language, logo: View, title: View -> onLanguageClick?.invoke(language, logo, title) }
         }
     }
 }

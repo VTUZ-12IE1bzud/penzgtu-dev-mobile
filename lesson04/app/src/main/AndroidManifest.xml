@@ -27,6 +27,8 @@
 
         <activity android:name=".ui.activity.MainActivity"/>
 
+        <activity android:name=".ui.activity.LanguageDetailActivity"/>
+
     </application>
 
 </manifest>
